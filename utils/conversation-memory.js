@@ -15,8 +15,10 @@ async function ensureDataDirectory() {
   const dataDir = path.join(__dirname, '../data');
   try {
     await fs.access(dataDir);
+    console.log('[DEBUG] Data directory exists:', dataDir);
   } catch {
     await fs.mkdir(dataDir, { recursive: true });
+    console.log('[DEBUG] Data directory created:', dataDir);
   }
 }
 
@@ -42,6 +44,7 @@ async function saveHistories() {
     await ensureDataDirectory();
     const histories = Object.fromEntries(conversationHistories);
     await fs.writeFile(STORAGE_PATH, JSON.stringify(histories, null, 2));
+    console.log('[DEBUG] Saved conversation histories to', STORAGE_PATH);
   } catch (error) {
     console.error('Error saving conversation histories:', error);
   }
@@ -49,6 +52,7 @@ async function saveHistories() {
 
 // Add a message to the conversation history
 async function addMessage(channelId, role, content) {
+  console.log(`[DEBUG] Adding message to channel ", channelId, ":`, { role, content });
   if (!conversationHistories.has(channelId)) {
     conversationHistories.set(channelId, []);
   }
