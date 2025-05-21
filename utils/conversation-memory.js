@@ -5,7 +5,7 @@ const path = require('path');
 const conversationHistories = new Map();
 
 // Maximum number of messages to keep in memory per channel
-const MAX_HISTORY_LENGTH = 10;
+const MAX_HISTORY_LENGTH = 50;
 
 // Path to store conversation histories
 const STORAGE_PATH = path.join(__dirname, '../data/conversations.json');
